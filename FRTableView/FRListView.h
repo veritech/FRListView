@@ -11,12 +11,13 @@
 
 @interface FRListView : UIView<UIScrollViewDelegate> {
 
-    id		dataSource_;
-	id		delegate_;
+    id						dataSource_;
+	id						delegate_;
 	
-	UIScrollView	*scrollView_;
+	UIScrollView			*scrollView_;
 	
-	BOOL	stickToBottom_;
+	BOOL					stickToBottom_;
+	NSMutableArray			*rectCache_;
 }
 
 @property (nonatomic,assign) id dataSource;

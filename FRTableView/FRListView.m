@@ -19,6 +19,13 @@
 -(void) registerForNotifications;
 -(void) unregisterForNotifications;
 
+-(void) clearCaches;
+-(CGRect) cachedRectForIndexPath:(NSIndexPath*) aPath;
+-(void) cacheRect:(CGRect) aRect forIndexPath:(NSIndexPath*) aPath;
+-(NSMutableArray*) rectCache;
+
+-(CGRect) visibleRect;
+
 @end
 
 #define DEBUGMODE YES
@@ -76,6 +83,18 @@
 			  context:NULL
 	 ];
 	
+	[self addObserver:self
+		   forKeyPath:@"bounds"
+			  options:NSKeyValueObservingOptionNew 
+			  context:NULL
+	 ];
+	
+	[self addObserver:self 
+		   forKeyPath:@"frame" 
+			  options:NSKeyValueObservingOptionNew
+			  context:NULL
+	 ];
+	
 }
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -84,10 +103,10 @@
 		[self setNeedsReload];
 	}
 	else if( [keyPath isEqualToString:@"bounds"]){
-	
+		[[self scrollView] setBounds:[object CGRectValue]];
 	}
 	else if( [keyPath isEqualToString:@"frame"]){
-		
+		[[self scrollView] setFrame:[object CGRectValue]];
 	}
 	
 }
@@ -95,7 +114,16 @@
 -(void) unregisterForNotifications{
 	
 	[self removeObserver:self 
-			  forKeyPath:@"dataSource"];
+			  forKeyPath:@"dataSource"
+	 ];
+	
+	[self removeObserver:self
+			  forKeyPath:@"bounds"
+	 ];
+	
+	[self removeObserver:self
+			  forKeyPath:@"frame"
+	 ];
 }
 
 /**
@@ -128,57 +156,151 @@
 	CGSize		contentSize;
 	CGFloat		cellHeight;
 	CGFloat		yOffset;
-	NSUInteger	numberOfRows;
 	CGRect		cellFrame;
 	id			cell;
 	NSIndexPath	*indexPath;
 
+	NSLog(@"Reloading");
 	
-	numberOfRows = [self numberOfRowsInList];
+	[self clearCaches];
 	
 	//Get the context size
 	contentSize = [[self scrollView] contentSize];
 	
 	//Reset the height
 	contentSize.height = 0.0f;
+	contentSize.width  = [self bounds].size.width; 
 	
 	yOffset = 0.0f;
 	
-	//Calculate the total height
-	for( int i=0; i < numberOfRows; i++ ){
-				
+	//Calculate the total heights && and get the cell rects
+	for( int i=0; i < [self numberOfRowsInList]; i++ ){
+		
 		indexPath = [NSIndexPath indexPathForRow:i
 									   inSection:0];
 		
 		cellHeight = [self heightForRowAtIndexPath:indexPath];		
-				
+		
 		cellFrame = CGRectMake(0.0f,yOffset,[self bounds].size.width, cellHeight);
 		
-		cell = [self cellForRowAtIndexPath:indexPath];
-		
-		[cell setFrame:cellFrame];
-		
-		NSLog(@"Cell %@",cell);
-		
-		[[self scrollView] addSubview:cell];
+		[self cacheRect:cellFrame
+		   forIndexPath:indexPath
+		 ];
+	
+		yOffset += cellHeight;
 		
 		contentSize.height += cellHeight;
-		yOffset += cellHeight;
+	}
+	
+	//Stick to the bottom
+	if( [self stickToBottom] ){
+		[[self scrollView] setContentOffset:CGPointMake(0.0f, contentSize.height-[[self scrollView] bounds].size.height)];
 	}
 	
 	[[self scrollView] setContentSize:contentSize];
 	
+	[self loadVisibleCells];
+	
+	
+
+	
 	NSLog(@"Set content size to %@",NSStringFromCGSize(contentSize));
 	
-	//Add the views
-	if( [self stickToBottom] ){
-		[[self scrollView] setContentOffset:CGPointMake(0.0f, contentSize.height-[[self scrollView] bounds].size.height)];
-	}
 		
+}
+
+-(void) loadVisibleCells{
+	
+	CGPoint		offset;
+	CGRect		cellRect;
+	id			cell;
+	NSIndexPath	*indexPath;
+	
+	//[[self scrollView] contentOffset]
+
+	//Loop over the cells and see if we have any overlap
+	for( int i=0; i < [self numberOfRowsInList]; i++ ){
+	
+		indexPath = [NSIndexPath indexPathForRow:i
+									   inSection:0
+					 ];
+		
+		cellRect = [self cachedRectForIndexPath:indexPath];
+		
+		NSLog(@"Comparing %@ && %@", NSStringFromCGRect(cellRect), NSStringFromCGRect([self visibleRect]));
+		
+		if( CGRectIntersectsRect(cellRect, [self visibleRect]) ){
+			//Load cell
+			NSLog(@"Loading cell %d",i);
+			
+			cell = [self cellForRowAtIndexPath:indexPath];
+			
+			[cell setFrame:cellRect];
+			
+			[[self scrollView] addSubview:cell];
+		};
+	}
+	
+}
+
+/**
+ *	Create the current visible rect
+ *	Move this to a category on UIScrollView
+ */
+-(CGRect) visibleRect{
+	
+	CGRect	retVal;
+	CGSize	size;
+	CGPoint origin;
+	
+	size = [[self scrollView] contentSize];
+	origin = [[self scrollView] contentOffset];
+	
+	retVal = CGRectMake(origin.x, origin.y, size.width, size.height);
+	
+	return retVal;
+}
+
+#pragma mark - Caching
+/**
+ *	Remove all caches
+ */
+-(void) clearCaches{
+	
+	[[self rectCache] removeAllObjects];
+}
+
+/**
+ *	Get a rect from the cache
+ */
+-(CGRect) cachedRectForIndexPath:(NSIndexPath*) aPath{
+	
+	return [[[self rectCache] objectAtIndex:[aPath row]] CGRectValue];
+}
+
+/**
+ *	Cache a rect
+ */
+-(void) cacheRect:(CGRect) aRect forIndexPath:(NSIndexPath*) aPath{
+	
+	[[self rectCache] insertObject:[NSValue valueWithCGRect:aRect]
+						   atIndex:[aPath row]
+	 ];
+}
+
+-(NSMutableArray*) rectCache{
+	
+	if( !rectCache_ ){
+		rectCache_ = [[NSMutableArray alloc] initWithCapacity:[self numberOfRowsInList]];
+	}
+	
+	return rectCache_;
 }
 
 //	Cells
 -(id) dequeueReusableCellWithIdentifier:(NSString*) aString{
+	
+	
 	
 }
 
@@ -221,6 +343,14 @@
 	}
 	
 	return nil;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+	
+	NSLog(@"%@",NSStringFromCGPoint([scrollView contentOffset]));
+	
+	[self loadVisibleCells];
 }
 
 @end
