@@ -1,0 +1,286 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AB53CDB813EB8AB400F1DD8A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB53CDB713EB8AB400F1DD8A /* UIKit.framework */; };
+		AB53CDBA13EB8AB400F1DD8A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB53CDB913EB8AB400F1DD8A /* Foundation.framework */; };
+		AB53CDBC13EB8AB400F1DD8A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB53CDBB13EB8AB400F1DD8A /* CoreGraphics.framework */; };
+		AB53CDC213EB8AB400F1DD8A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB53CDC013EB8AB400F1DD8A /* InfoPlist.strings */; };
+		AB53CDC513EB8AB400F1DD8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AB53CDC413EB8AB400F1DD8A /* main.m */; };
+		AB53CDC813EB8AB400F1DD8A /* FRTableViewAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB53CDC713EB8AB400F1DD8A /* FRTableViewAppDelegate.m */; };
+		AB53CDCB13EB8AB400F1DD8A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB53CDC913EB8AB400F1DD8A /* MainWindow.xib */; };
+		AB53CDCE13EB8AB400F1DD8A /* FRTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB53CDCD13EB8AB400F1DD8A /* FRTableViewViewController.m */; };
+		AB53CDD113EB8AB400F1DD8A /* FRTableViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB53CDCF13EB8AB400F1DD8A /* FRTableViewViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AB53CDB313EB8AB400F1DD8A /* FRTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FRTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB53CDB713EB8AB400F1DD8A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AB53CDB913EB8AB400F1DD8A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AB53CDBB13EB8AB400F1DD8A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AB53CDBF13EB8AB400F1DD8A /* FRTableView-Info.plist */ = {isa = PBXFileReference; path = "FRTableView-Info.plist"; sourceTree = "<group>"; };
+		AB53CDC113EB8AB400F1DD8A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AB53CDC313EB8AB400F1DD8A /* FRTableView-Prefix.pch */ = {isa = PBXFileReference; path = "FRTableView-Prefix.pch"; sourceTree = "<group>"; };
+		AB53CDC413EB8AB400F1DD8A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AB53CDC613EB8AB400F1DD8A /* FRTableViewAppDelegate.h */ = {isa = PBXFileReference; path = FRTableViewAppDelegate.h; sourceTree = "<group>"; };
+		AB53CDC713EB8AB400F1DD8A /* FRTableViewAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FRTableViewAppDelegate.m; sourceTree = "<group>"; };
+		AB53CDCA13EB8AB400F1DD8A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		AB53CDCC13EB8AB400F1DD8A /* FRTableViewViewController.h */ = {isa = PBXFileReference; path = FRTableViewViewController.h; sourceTree = "<group>"; };
+		AB53CDCD13EB8AB400F1DD8A /* FRTableViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FRTableViewViewController.m; sourceTree = "<group>"; };
+		AB53CDD013EB8AB400F1DD8A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FRTableViewViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB53CDB013EB8AB400F1DD8A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB53CDB813EB8AB400F1DD8A /* UIKit.framework in Frameworks */,
+				AB53CDBA13EB8AB400F1DD8A /* Foundation.framework in Frameworks */,
+				AB53CDBC13EB8AB400F1DD8A /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AB53CDA813EB8AB400F1DD8A = {
+			isa = PBXGroup;
+			children = (
+				AB53CDBD13EB8AB400F1DD8A /* FRTableView */,
+				AB53CDB613EB8AB400F1DD8A /* Frameworks */,
+				AB53CDB413EB8AB400F1DD8A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AB53CDB413EB8AB400F1DD8A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB53CDB313EB8AB400F1DD8A /* FRTableView.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB53CDB613EB8AB400F1DD8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AB53CDB713EB8AB400F1DD8A /* UIKit.framework */,
+				AB53CDB913EB8AB400F1DD8A /* Foundation.framework */,
+				AB53CDBB13EB8AB400F1DD8A /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AB53CDBD13EB8AB400F1DD8A /* FRTableView */ = {
+			isa = PBXGroup;
+			children = (
+				AB53CDC613EB8AB400F1DD8A /* FRTableViewAppDelegate.h */,
+				AB53CDC713EB8AB400F1DD8A /* FRTableViewAppDelegate.m */,
+				AB53CDC913EB8AB400F1DD8A /* MainWindow.xib */,
+				AB53CDCC13EB8AB400F1DD8A /* FRTableViewViewController.h */,
+				AB53CDCD13EB8AB400F1DD8A /* FRTableViewViewController.m */,
+				AB53CDCF13EB8AB400F1DD8A /* FRTableViewViewController.xib */,
+				AB53CDBE13EB8AB400F1DD8A /* Supporting Files */,
+			);
+			path = FRTableView;
+			sourceTree = "<group>";
+		};
+		AB53CDBE13EB8AB400F1DD8A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AB53CDBF13EB8AB400F1DD8A /* FRTableView-Info.plist */,
+				AB53CDC013EB8AB400F1DD8A /* InfoPlist.strings */,
+				AB53CDC313EB8AB400F1DD8A /* FRTableView-Prefix.pch */,
+				AB53CDC413EB8AB400F1DD8A /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AB53CDB213EB8AB400F1DD8A /* FRTableView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB53CDD413EB8AB400F1DD8A /* Build configuration list for PBXNativeTarget "FRTableView" */;
+			buildPhases = (
+				AB53CDAF13EB8AB400F1DD8A /* Sources */,
+				AB53CDB013EB8AB400F1DD8A /* Frameworks */,
+				AB53CDB113EB8AB400F1DD8A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FRTableView;
+			productName = FRTableView;
+			productReference = AB53CDB313EB8AB400F1DD8A /* FRTableView.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AB53CDAA13EB8AB400F1DD8A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Float:Right Ltd";
+			};
+			buildConfigurationList = AB53CDAD13EB8AB400F1DD8A /* Build configuration list for PBXProject "FRTableView" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AB53CDA813EB8AB400F1DD8A;
+			productRefGroup = AB53CDB413EB8AB400F1DD8A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AB53CDB213EB8AB400F1DD8A /* FRTableView */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB53CDB113EB8AB400F1DD8A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB53CDC213EB8AB400F1DD8A /* InfoPlist.strings in Resources */,
+				AB53CDCB13EB8AB400F1DD8A /* MainWindow.xib in Resources */,
+				AB53CDD113EB8AB400F1DD8A /* FRTableViewViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB53CDAF13EB8AB400F1DD8A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB53CDC513EB8AB400F1DD8A /* main.m in Sources */,
+				AB53CDC813EB8AB400F1DD8A /* FRTableViewAppDelegate.m in Sources */,
+				AB53CDCE13EB8AB400F1DD8A /* FRTableViewViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		AB53CDC013EB8AB400F1DD8A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB53CDC113EB8AB400F1DD8A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AB53CDC913EB8AB400F1DD8A /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB53CDCA13EB8AB400F1DD8A /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+		AB53CDCF13EB8AB400F1DD8A /* FRTableViewViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB53CDD013EB8AB400F1DD8A /* en */,
+			);
+			name = FRTableViewViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AB53CDD213EB8AB400F1DD8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AB53CDD313EB8AB400F1DD8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		AB53CDD513EB8AB400F1DD8A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FRTableView/FRTableView-Prefix.pch";
+				INFOPLIST_FILE = "FRTableView/FRTableView-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AB53CDD613EB8AB400F1DD8A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "FRTableView/FRTableView-Prefix.pch";
+				INFOPLIST_FILE = "FRTableView/FRTableView-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB53CDAD13EB8AB400F1DD8A /* Build configuration list for PBXProject "FRTableView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB53CDD213EB8AB400F1DD8A /* Debug */,
+				AB53CDD313EB8AB400F1DD8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB53CDD413EB8AB400F1DD8A /* Build configuration list for PBXNativeTarget "FRTableView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB53CDD513EB8AB400F1DD8A /* Debug */,
+				AB53CDD613EB8AB400F1DD8A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AB53CDAA13EB8AB400F1DD8A /* Project object */;
+}
