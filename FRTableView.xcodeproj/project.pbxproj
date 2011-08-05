@@ -14,8 +14,9 @@
 		AB53CDC513EB8AB400F1DD8A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AB53CDC413EB8AB400F1DD8A /* main.m */; };
 		AB53CDC813EB8AB400F1DD8A /* FRTableViewAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AB53CDC713EB8AB400F1DD8A /* FRTableViewAppDelegate.m */; };
 		AB53CDCB13EB8AB400F1DD8A /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB53CDC913EB8AB400F1DD8A /* MainWindow.xib */; };
-		AB53CDCE13EB8AB400F1DD8A /* FRTableViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB53CDCD13EB8AB400F1DD8A /* FRTableViewViewController.m */; };
-		AB53CDD113EB8AB400F1DD8A /* FRTableViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB53CDCF13EB8AB400F1DD8A /* FRTableViewViewController.xib */; };
+		AB53CDDA13EB8AF400F1DD8A /* HarnessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB53CDD813EB8AF400F1DD8A /* HarnessViewController.m */; };
+		AB53CDDB13EB8AF400F1DD8A /* HarnessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB53CDD913EB8AF400F1DD8A /* HarnessViewController.xib */; };
+		AB53CDE013EB8B2600F1DD8A /* FRListView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB53CDDF13EB8B2600F1DD8A /* FRListView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,16 +24,18 @@
 		AB53CDB713EB8AB400F1DD8A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AB53CDB913EB8AB400F1DD8A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AB53CDBB13EB8AB400F1DD8A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		AB53CDBF13EB8AB400F1DD8A /* FRTableView-Info.plist */ = {isa = PBXFileReference; path = "FRTableView-Info.plist"; sourceTree = "<group>"; };
+		AB53CDBF13EB8AB400F1DD8A /* FRTableView-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FRTableView-Info.plist"; sourceTree = "<group>"; };
 		AB53CDC113EB8AB400F1DD8A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AB53CDC313EB8AB400F1DD8A /* FRTableView-Prefix.pch */ = {isa = PBXFileReference; path = "FRTableView-Prefix.pch"; sourceTree = "<group>"; };
+		AB53CDC313EB8AB400F1DD8A /* FRTableView-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FRTableView-Prefix.pch"; sourceTree = "<group>"; };
 		AB53CDC413EB8AB400F1DD8A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		AB53CDC613EB8AB400F1DD8A /* FRTableViewAppDelegate.h */ = {isa = PBXFileReference; path = FRTableViewAppDelegate.h; sourceTree = "<group>"; };
+		AB53CDC613EB8AB400F1DD8A /* FRTableViewAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FRTableViewAppDelegate.h; sourceTree = "<group>"; };
 		AB53CDC713EB8AB400F1DD8A /* FRTableViewAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FRTableViewAppDelegate.m; sourceTree = "<group>"; };
 		AB53CDCA13EB8AB400F1DD8A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
-		AB53CDCC13EB8AB400F1DD8A /* FRTableViewViewController.h */ = {isa = PBXFileReference; path = FRTableViewViewController.h; sourceTree = "<group>"; };
-		AB53CDCD13EB8AB400F1DD8A /* FRTableViewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FRTableViewViewController.m; sourceTree = "<group>"; };
-		AB53CDD013EB8AB400F1DD8A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/FRTableViewViewController.xib; sourceTree = "<group>"; };
+		AB53CDD713EB8AF400F1DD8A /* HarnessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HarnessViewController.h; sourceTree = "<group>"; };
+		AB53CDD813EB8AF400F1DD8A /* HarnessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HarnessViewController.m; sourceTree = "<group>"; };
+		AB53CDD913EB8AF400F1DD8A /* HarnessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HarnessViewController.xib; sourceTree = "<group>"; };
+		AB53CDDE13EB8B2600F1DD8A /* FRListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRListView.h; sourceTree = "<group>"; };
+		AB53CDDF13EB8B2600F1DD8A /* FRListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRListView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,13 +82,15 @@
 		AB53CDBD13EB8AB400F1DD8A /* FRTableView */ = {
 			isa = PBXGroup;
 			children = (
+				AB53CDDD13EB8B0300F1DD8A /* Views */,
+				AB53CDDC13EB8AF900F1DD8A /* Controllers */,
 				AB53CDC613EB8AB400F1DD8A /* FRTableViewAppDelegate.h */,
 				AB53CDC713EB8AB400F1DD8A /* FRTableViewAppDelegate.m */,
 				AB53CDC913EB8AB400F1DD8A /* MainWindow.xib */,
-				AB53CDCC13EB8AB400F1DD8A /* FRTableViewViewController.h */,
-				AB53CDCD13EB8AB400F1DD8A /* FRTableViewViewController.m */,
-				AB53CDCF13EB8AB400F1DD8A /* FRTableViewViewController.xib */,
 				AB53CDBE13EB8AB400F1DD8A /* Supporting Files */,
+				AB53CDD713EB8AF400F1DD8A /* HarnessViewController.h */,
+				AB53CDD813EB8AF400F1DD8A /* HarnessViewController.m */,
+				AB53CDD913EB8AF400F1DD8A /* HarnessViewController.xib */,
 			);
 			path = FRTableView;
 			sourceTree = "<group>";
@@ -99,6 +104,22 @@
 				AB53CDC413EB8AB400F1DD8A /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AB53CDDC13EB8AF900F1DD8A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		AB53CDDD13EB8B0300F1DD8A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AB53CDDE13EB8B2600F1DD8A /* FRListView.h */,
+				AB53CDDF13EB8B2600F1DD8A /* FRListView.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,7 +174,7 @@
 			files = (
 				AB53CDC213EB8AB400F1DD8A /* InfoPlist.strings in Resources */,
 				AB53CDCB13EB8AB400F1DD8A /* MainWindow.xib in Resources */,
-				AB53CDD113EB8AB400F1DD8A /* FRTableViewViewController.xib in Resources */,
+				AB53CDDB13EB8AF400F1DD8A /* HarnessViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +187,8 @@
 			files = (
 				AB53CDC513EB8AB400F1DD8A /* main.m in Sources */,
 				AB53CDC813EB8AB400F1DD8A /* FRTableViewAppDelegate.m in Sources */,
-				AB53CDCE13EB8AB400F1DD8A /* FRTableViewViewController.m in Sources */,
+				AB53CDDA13EB8AF400F1DD8A /* HarnessViewController.m in Sources */,
+				AB53CDE013EB8B2600F1DD8A /* FRListView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,14 +209,6 @@
 				AB53CDCA13EB8AB400F1DD8A /* en */,
 			);
 			name = MainWindow.xib;
-			sourceTree = "<group>";
-		};
-		AB53CDCF13EB8AB400F1DD8A /* FRTableViewViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AB53CDD013EB8AB400F1DD8A /* en */,
-			);
-			name = FRTableViewViewController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
