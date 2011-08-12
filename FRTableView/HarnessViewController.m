@@ -42,34 +42,50 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	
-	NSLog(@"List View %@",listView);
-	
 	[[self listView] setStickToBottom:YES];
 	
 	[[self listView] setDataSource:self];
+	
+	[[self listView] setDelegate:self];
 }
 
--(id) listView:(FRListView*) aListView cellForRowAtIndexPath:(NSIndexPath*) aPath{
+#pragma mark - DataSource
+-(id) listView:(FRListView*) aListView cellForRowAtIndex:(NSUInteger) aRow{
 	
-	id view;
+	UITableViewCell *cell;
 	
-	view = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+	if( !(cell = [aListView dequeueReusableCellWithIdentifier:@"cell"]) ){
+		NSLog(@"Created cell");
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+									   reuseIdentifier:@"cell"] autorelease];
+	}
 	
-	[view setText:[NSString stringWithFormat:@"Cell %d",[aPath row]]];
+	[[cell textLabel] setText:[NSString stringWithFormat:@"Cell %d",aRow]];
 	
-	if( [aPath row] % 2 ){
-		[view setBackgroundColor:[UIColor greenColor]];		
+	if( aRow % 2 ){
+		[[cell textLabel] setBackgroundColor:[UIColor greenColor]];		
 	}
 	else{
-		[view setBackgroundColor:[UIColor blueColor]];
+		[[cell textLabel] setBackgroundColor:[UIColor blueColor]];
 	}
 	
-	return view;
+	return cell;
 }
 
 -(NSUInteger) numberOfRowsInListView:(FRListView*) aView{
 	
-	return 50;
+	return 1000;
+}
+
+-(CGFloat) listView:(FRListView *) aView heightForRowAtIndex:(NSUInteger) aRow{
+	
+	if( aRow % 2 ){
+		return 100.0f;		
+	}
+	else{
+		return 50.0f;
+	}
+
 }
 
 - (void)viewDidUnload

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FRListView.h"
 
-@interface HarnessViewController : UIViewController {
+@interface HarnessViewController : UIViewController<FRListViewDelegate,FRListViewDataSource>{
     
 	FRListView *listView;
 }
