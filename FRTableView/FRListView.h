@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+#define FRListViewCountDirty -1
+#define kFRListViewCacheSize 12
+#define kFRListViewSetNeedsReloadNotification @"FRListViewSetNeedsReloadNotification"
+#define DEBUGMODE YES
+
+@protocol FRListViewDataSource;
+@protocol FRListViewDelegate;
 
 @interface FRListView : UIView<UIScrollViewDelegate> {
 
@@ -17,11 +24,16 @@
 	UIScrollView			*scrollView_;
 	
 	BOOL					stickToBottom_;
-	NSMutableArray			*rectCache_;
+	
+	NSInteger				cachedRowCount_;
+	
+	NSMutableArray			*rectCache_;	
+	NSCache					*cellCache_;
+
 }
 
-@property (nonatomic,assign) id dataSource;
-@property (nonatomic,assign) id delegate;
+@property (nonatomic,assign) id<FRListViewDataSource> dataSource;
+@property (nonatomic,assign) id<FRListViewDelegate> delegate;
 @property (nonatomic,assign) BOOL stickToBottom;
 
 -(void) setNeedsReload;
@@ -34,21 +46,23 @@
 
 @optional
 
--(void) listView:(FRListView*) aView willDisplayCell:(id) aCell forRowAtIndexPath:(NSIndexPath*) aPath;
+-(void) listView:(FRListView*) aView willDisplayCell:(id) aCell forRowAtIndex:(NSUInteger) aRow;
 
--(CGFloat) listView:(FRListView *) aView heightForRowAtIndexPath:(NSIndexPath*) aPath;
+-(CGFloat) listView:(FRListView *) aView heightForRowAtIndex:(NSUInteger) aRow;
 
--(void) listView:(FRListView*) aView didSelectRowAtIndexPath:(NSIndexPath*) aPath;
+-(void) listView:(FRListView*) aView didSelectRowAtIndex:(NSUInteger) aRow;
 
--(BOOL) listView:(FRListView*) aView canPerformAction:(SEL) aAction forRowAtIndexPath:(NSIndexPath*) aPath withSender:(id) aObject;
+//TODO:
+//Implement
+//-(BOOL) listView:(FRListView*) aView canPerformAction:(SEL) aAction forRowAtIndex:(NSUInteger) aRow withSender:(id) aObject;
 
--(void) listView:(FRListView *)aView performAction:(SEL) aAction forRowIndexPath:(NSIndexPath*) aPath withSender:(id) aObject;
+//-(void) listView:(FRListView *)aView performAction:(SEL) aAction forRowAtIndex:(NSUInteger*) aRow withSender:(id) aObject;
 
 @end
 
 @protocol FRListViewDataSource <NSObject>
 
--(id) listView:(FRListView*) aListView cellForRowAtIndexPath:(NSIndexPath*) aPath;
+-(id) listView:(FRListView*) aListView cellForRowAtIndex:(NSUInteger) aRow;
 
 -(NSUInteger) numberOfRowsInListView:(FRListView*) aView;
 

@@ -7,28 +7,40 @@
 //
 
 #import "FRListView.h"
+#import "NSMutableArray+queue.h"
+
 
 @interface FRListView()
 
 -(UIScrollView*) scrollView;
 -(void) setupView;
--(CGFloat) heightForRowAtIndexPath:(NSIndexPath*) aPath;
--(NSInteger) numberOfRowsInList;
--(id) cellForRowAtIndexPath:(NSIndexPath*) aPath;
 
 -(void) registerForNotifications;
 -(void) unregisterForNotifications;
 
--(void) clearCaches;
--(CGRect) cachedRectForIndexPath:(NSIndexPath*) aPath;
--(void) cacheRect:(CGRect) aRect forIndexPath:(NSIndexPath*) aPath;
--(NSMutableArray*) rectCache;
-
 -(CGRect) visibleRect;
 
-@end
+//Caching
+-(void) clearCaches;
 
-#define DEBUGMODE YES
+-(NSCache*) cellCache;
+-(NSMutableArray*) cellCacheForIdentifier:(NSString*) aName;
+
+-(CGRect) cachedRectForRowAtIndex:(NSUInteger) aRow;
+-(void) cacheRect:(CGRect)aRect forRowAtIndex:(NSUInteger)aRow;
+
+-(NSMutableArray*) rectCache;
+
+//Delegate
+-(CGFloat) heightForRowAtIndex:(NSUInteger) aRow;
+-(void) didSelectRowAtIndex:(NSUInteger) aRow;
+-(void) willDisplayCell:(id) aCell forRowAtIndex:(NSUInteger) aRow;
+
+//Datasource
+-(id) cellForRowAtIndex:(NSUInteger) aRow;
+-(NSInteger) numberOfRowsInList;
+
+@end
 
 @implementation FRListView
 
@@ -53,6 +65,12 @@
 	[scrollView_ release];
 	scrollView_ = nil;
 	
+	[cellCache_ release];
+	cellCache_ = nil;
+	
+	[rectCache_ release];
+	rectCache_ = nil;
+	
 	dataSource_ = nil;
 	delegate_ = nil;
 
@@ -66,9 +84,16 @@
 	[self setupView];
 }
 
+/**
+ *	Create the sub view heirarchy
+ */
 -(void) setupView{
 	//Add the scroll view
 	[self addSubview:[self scrollView]];
+	
+	stickToBottom_ = NO;
+	
+	cachedRowCount_ = 0;
 	
 	[self registerForNotifications];
 	
@@ -95,6 +120,12 @@
 			  context:NULL
 	 ];
 	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(reloadData)
+												 name:kFRListViewSetNeedsReloadNotification
+											   object:self
+	 ];
+	
 }
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -113,6 +144,8 @@
 
 -(void) unregisterForNotifications{
 	
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
 	[self removeObserver:self 
 			  forKeyPath:@"dataSource"
 	 ];
@@ -126,6 +159,7 @@
 	 ];
 }
 
+#pragma mark - Private accessors
 /**
  *	Internal view to get the scroll view
  */
@@ -146,19 +180,37 @@
 	return scrollView_;
 }
 
-//	Data management
+#pragma mark - Reload management
+/**
+ *	Queue requests to have the view reloaded
+ *
+ */
 -(void) setNeedsReload{
-	[self reloadData];
+	
+	NSNotification *notification;
+	
+	notification = [NSNotification notificationWithName:kFRListViewSetNeedsReloadNotification
+												 object:self
+					];
+	
+	[[NSNotificationQueue defaultQueue] enqueueNotification:notification
+											   postingStyle:NSPostASAP
+											   coalesceMask:(NSNotificationCoalescingOnName|NSNotificationCoalescingOnSender)
+												   forModes:nil
+	 ];
+	
 }
 
+/**
+ *	Reload the data immediately
+ *
+ */
 -(void) reloadData{
 	
 	CGSize		contentSize;
 	CGFloat		cellHeight;
 	CGFloat		yOffset;
 	CGRect		cellFrame;
-	id			cell;
-	NSIndexPath	*indexPath;
 
 	NSLog(@"Reloading");
 	
@@ -176,15 +228,12 @@
 	//Calculate the total heights && and get the cell rects
 	for( int i=0; i < [self numberOfRowsInList]; i++ ){
 		
-		indexPath = [NSIndexPath indexPathForRow:i
-									   inSection:0];
-		
-		cellHeight = [self heightForRowAtIndexPath:indexPath];		
+		cellHeight = [self heightForRowAtIndex:i];		
 		
 		cellFrame = CGRectMake(0.0f,yOffset,[self bounds].size.width, cellHeight);
 		
 		[self cacheRect:cellFrame
-		   forIndexPath:indexPath
+		  forRowAtIndex:i
 		 ];
 	
 		yOffset += cellHeight;
@@ -199,48 +248,43 @@
 	
 	[[self scrollView] setContentSize:contentSize];
 	
-	[self loadVisibleCells];
-	
-	
-
-	
-	NSLog(@"Set content size to %@",NSStringFromCGSize(contentSize));
-	
-		
+	//NSLog(@"Set content size to %@",NSStringFromCGSize(contentSize));
+			
 }
 
--(void) loadVisibleCells{
+/**
+ *
+ *
+ */
+-(void)loadCellsForRect:(CGRect) visibleRect{
 	
-	CGPoint		offset;
-	CGRect		cellRect;
 	id			cell;
-	NSIndexPath	*indexPath;
+	CGRect		cellRect;
 	
-	//[[self scrollView] contentOffset]
-
 	//Loop over the cells and see if we have any overlap
 	for( int i=0; i < [self numberOfRowsInList]; i++ ){
-	
-		indexPath = [NSIndexPath indexPathForRow:i
-									   inSection:0
-					 ];
-		
-		cellRect = [self cachedRectForIndexPath:indexPath];
-		
-		NSLog(@"Comparing %@ && %@", NSStringFromCGRect(cellRect), NSStringFromCGRect([self visibleRect]));
-		
-		if( CGRectIntersectsRect(cellRect, [self visibleRect]) ){
-			//Load cell
-			NSLog(@"Loading cell %d",i);
+
 			
-			cell = [self cellForRowAtIndexPath:indexPath];
+		cellRect = [self cachedRectForRowAtIndex:i];
+		
+		//NSLog(@"Comparing %@ && %@", NSStringFromCGRect(cellRect), NSStringFromCGRect(visibleRect));
+		
+		if( CGRectIntersectsRect(cellRect, visibleRect) ){
+			//Load cell
+			//NSLog(@"Loading cell At index %d",i);
+		
+			
+			cell = [self cellForRowAtIndex:i];
 			
 			[cell setFrame:cellRect];
+			
+			[self willDisplayCell:cell
+					forRowAtIndex:i
+			 ];
 			
 			[[self scrollView] addSubview:cell];
 		};
 	}
-	
 }
 
 /**
@@ -253,7 +297,7 @@
 	CGSize	size;
 	CGPoint origin;
 	
-	size = [[self scrollView] contentSize];
+	size = [[self scrollView] bounds].size;
 	origin = [[self scrollView] contentOffset];
 	
 	retVal = CGRectMake(origin.x, origin.y, size.width, size.height);
@@ -267,27 +311,34 @@
  */
 -(void) clearCaches{
 	
+	cachedRowCount_ = FRListViewCountDirty;
+	
 	[[self rectCache] removeAllObjects];
+	[[self cellCache] removeAllObjects];
 }
 
 /**
  *	Get a rect from the cache
  */
--(CGRect) cachedRectForIndexPath:(NSIndexPath*) aPath{
-	
-	return [[[self rectCache] objectAtIndex:[aPath row]] CGRectValue];
+-(CGRect) cachedRectForRowAtIndex:(NSUInteger) aRow{
+	return [[[self rectCache] objectAtIndex:aRow] CGRectValue];
 }
 
 /**
  *	Cache a rect
  */
--(void) cacheRect:(CGRect) aRect forIndexPath:(NSIndexPath*) aPath{
+-(void) cacheRect:(CGRect)aRect forRowAtIndex:(NSUInteger)aRow{
 	
 	[[self rectCache] insertObject:[NSValue valueWithCGRect:aRect]
-						   atIndex:[aPath row]
-	 ];
+						   atIndex:aRow
+	 ];	
+	
 }
 
+/**
+ *	A cache for all the rects in the view
+ *
+ */
 -(NSMutableArray*) rectCache{
 	
 	if( !rectCache_ ){
@@ -297,60 +348,161 @@
 	return rectCache_;
 }
 
-//	Cells
+/**
+ *	Create the cell cache
+ */
+-(NSCache*) cellCache{
+	
+	if( !cellCache_ ){
+		cellCache_ = [[NSCache alloc] init];
+		
+		[cellCache_ setName:@"com.FRListView.cellCache"];
+	}
+	return cellCache_;
+}
+
+/**
+ *	Create cell cache's for a given id
+ *	@param aName The name of the cache
+ *	
+ *	@return aCache
+ */
+-(NSMutableArray*) cellCacheForIdentifier:(NSString*) aName{
+	
+	NSMutableArray *cache = nil;
+	
+	if( !(cache = (NSMutableArray*)[[self cellCache] objectForKey:aName]) ){
+		
+		cache = [[NSMutableArray alloc] initWithCapacity:kFRListViewCacheSize];
+		
+		[[self cellCache] setObject:cache
+							 forKey:aName];
+		
+		[cache release];
+	}
+	
+	return cache;
+}
+
+#pragma mark - Cell reuse
+/**
+ *	Get the cell from the internal cell cache
+ *	@param the id
+ */
 -(id) dequeueReusableCellWithIdentifier:(NSString*) aString{
+
+	id				cell = nil;
+	NSMutableArray *cache = nil;
 	
+	if( aString ){
+
+		cache = [self cellCacheForIdentifier:aString];
+		
+		//If the cache full
+		if( [cache count] >= kFRListViewCacheSize ){
+			
+			//NSLog(@"Cache Hit!");
+			//Dequeue a cell
+			cell = [cache dequeue];
+			
+			//Prepare it for reuse
+			[cell prepareForReuse]; 		
+		}
+	}
 	
-	
+	//return it
+	return cell;
 }
 
-//	Delegate wrappers
--(void) willDisplayCell:(id) aCell forRowAtIndexPath:(NSIndexPath*) aPath{
+#pragma mark - FRListViewDelegate wrapper methods
+/**
+ *	
+ */
+-(void) willDisplayCell:(id) aCell forRowAtIndex:(NSUInteger) aRow{
 	
+	if( [[self delegate] respondsToSelector:@selector(listView:willDisplayCell:forRowAtIndex:)]){
+		
+		[[self delegate] listView:self
+				  willDisplayCell:aCell
+					forRowAtIndex:aRow
+		 ];
+	}
 }
 
--(void) didSelectRowAtIndexPath:(NSIndexPath*) aPath{
-	
+/**
+ *
+ */
+-(void) didSelectRowAtIndex:(NSUInteger) aRow{
+		
+	if( [[self delegate] respondsToSelector:@selector(listView:didSelectRowAtIndex:)] ){
+		[[self delegate] listView:self
+			  didSelectRowAtIndex:aRow
+		 ];
+	}
 }
 
--(CGFloat) heightForRowAtIndexPath:(NSIndexPath*) aPath{
+/**
+ *
+ */
+-(CGFloat) heightForRowAtIndex:(NSUInteger) aRow{
 	
-	if( [[self delegate] respondsToSelector:@selector(listView:heightForRowAtIndexPath::)] ){
+	if( [[self delegate] respondsToSelector:@selector(listView:heightForRowAtIndex:)] ){
 		return [[self delegate] listView:self
-				 heightForRowAtIndexPath:aPath
+					 heightForRowAtIndex:aRow
 				];
 	}
 	
 	return 40.0f;
 }
 
-//	Datasource wrappers
+#pragma mark - FRListViewDataSource wrapper methods
+/**
+ *	Get the total numbers of the cells
+ */
 -(NSInteger) numberOfRowsInList{
 	
-	if( [[self dataSource] respondsToSelector:@selector(numberOfRowsInListView:)] ){
-		return [[self dataSource] numberOfRowsInListView:self];
+	if( [[self dataSource] respondsToSelector:@selector(numberOfRowsInListView:)] && cachedRowCount_ == FRListViewCountDirty ){
+		cachedRowCount_ =  [[self dataSource] numberOfRowsInListView:self];
 	}
 	
-	return 0;
+	return cachedRowCount_;
 }
 
--(id) cellForRowAtIndexPath:(NSIndexPath*) aPath{
+/**
+ *	Internal Cell for row at index path method
+ *	@param aPath NSIndexPath of the cell 
+ *	
+ *	@return a Newly configured cell
+ */
+-(id) cellForRowAtIndex:(NSUInteger) aRow{
 	
-	if( [[self dataSource] respondsToSelector:@selector(listView:cellForRowAtIndexPath:)]){
-		return [[self dataSource] listView:self
-					 cellForRowAtIndexPath:aPath
-		 ];
+	UITableViewCell	*cell = nil;
+	NSString *cellIdentifier = nil;
+	
+	//Create a cache for the cell
+	if( [[self dataSource] respondsToSelector:@selector(listView:cellForRowAtIndex:)] ){
+		
+		cell = [[self dataSource] listView:self
+						 cellForRowAtIndex:aRow
+				];
+		
+		//Add the cell to the cache
+		if( (cellIdentifier = [cell reuseIdentifier]) ){
+			[[self cellCacheForIdentifier:cellIdentifier] enqueue:cell];		
+		}	
 	}
 	
-	return nil;
+	return cell;
 }
 
 #pragma mark - UIScrollViewDelegate
+/**
+ *	Reload the cells as we scroll
+ */
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 	
-	NSLog(@"%@",NSStringFromCGPoint([scrollView contentOffset]));
+	[self loadCellsForRect:[self visibleRect]];
 	
-	[self loadVisibleCells];
 }
 
 @end
