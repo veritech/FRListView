@@ -17,6 +17,7 @@
 		AB53CDDA13EB8AF400F1DD8A /* HarnessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB53CDD813EB8AF400F1DD8A /* HarnessViewController.m */; };
 		AB53CDDB13EB8AF400F1DD8A /* HarnessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB53CDD913EB8AF400F1DD8A /* HarnessViewController.xib */; };
 		AB53CDE013EB8B2600F1DD8A /* FRListView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB53CDDF13EB8B2600F1DD8A /* FRListView.m */; };
+		ABB1905813F37D6E009FB7D8 /* NSMutableArray+queue.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB1905713F37D6E009FB7D8 /* NSMutableArray+queue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		AB53CDD913EB8AF400F1DD8A /* HarnessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HarnessViewController.xib; sourceTree = "<group>"; };
 		AB53CDDE13EB8B2600F1DD8A /* FRListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FRListView.h; sourceTree = "<group>"; };
 		AB53CDDF13EB8B2600F1DD8A /* FRListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FRListView.m; sourceTree = "<group>"; };
+		ABB1905613F37D6E009FB7D8 /* NSMutableArray+queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+queue.h"; sourceTree = "<group>"; };
+		ABB1905713F37D6E009FB7D8 /* NSMutableArray+queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+queue.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +85,7 @@
 		AB53CDBD13EB8AB400F1DD8A /* FRTableView */ = {
 			isa = PBXGroup;
 			children = (
+				ABB1905A13F37D73009FB7D8 /* Category */,
 				AB53CDDD13EB8B0300F1DD8A /* Views */,
 				AB53CDDC13EB8AF900F1DD8A /* Controllers */,
 				AB53CDC613EB8AB400F1DD8A /* FRTableViewAppDelegate.h */,
@@ -120,6 +124,15 @@
 				AB53CDDF13EB8B2600F1DD8A /* FRListView.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		ABB1905A13F37D73009FB7D8 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				ABB1905613F37D6E009FB7D8 /* NSMutableArray+queue.h */,
+				ABB1905713F37D6E009FB7D8 /* NSMutableArray+queue.m */,
+			);
+			name = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +202,7 @@
 				AB53CDC813EB8AB400F1DD8A /* FRTableViewAppDelegate.m in Sources */,
 				AB53CDDA13EB8AF400F1DD8A /* HarnessViewController.m in Sources */,
 				AB53CDE013EB8B2600F1DD8A /* FRListView.m in Sources */,
+				ABB1905813F37D6E009FB7D8 /* NSMutableArray+queue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +307,7 @@
 				AB53CDD613EB8AB400F1DD8A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
