@@ -16,7 +16,8 @@ build/*
 # osx noise
 .DS_Store
 profile
-.xcodeproj/project.xcworkspace/xcuserdata/*
+*.xcworkspace
+*.xcuserdatad
 .xcodeproj/xcuserdata/*
 
 # Custom
