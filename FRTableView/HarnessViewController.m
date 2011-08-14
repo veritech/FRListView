@@ -17,6 +17,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+
     }
     return self;
 }
@@ -42,11 +43,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	
+	count_ = 1;
+	
 	[[self listView] setStickToBottom:YES];
 	
 	[[self listView] setDataSource:self];
 	
 	[[self listView] setDelegate:self];
+	
+	[NSTimer scheduledTimerWithTimeInterval:5.0f
+									 target:self 
+								   selector:@selector(update) 
+								   userInfo:nil 
+									repeats:YES
+	 ];
+}
+
+-(void) update{
+	
+	count_++;
+	
+	[[self listView] setNeedsReload];
 }
 
 #pragma mark - DataSource
@@ -74,7 +91,7 @@
 
 -(NSUInteger) numberOfRowsInListView:(FRListView*) aView{
 	
-	return 1000;
+	return count_;
 }
 
 -(CGFloat) listView:(FRListView *) aView heightForRowAtIndex:(NSUInteger) aRow{

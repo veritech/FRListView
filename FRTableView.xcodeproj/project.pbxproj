@@ -92,9 +92,6 @@
 				AB53CDC713EB8AB400F1DD8A /* FRTableViewAppDelegate.m */,
 				AB53CDC913EB8AB400F1DD8A /* MainWindow.xib */,
 				AB53CDBE13EB8AB400F1DD8A /* Supporting Files */,
-				AB53CDD713EB8AF400F1DD8A /* HarnessViewController.h */,
-				AB53CDD813EB8AF400F1DD8A /* HarnessViewController.m */,
-				AB53CDD913EB8AF400F1DD8A /* HarnessViewController.xib */,
 			);
 			path = FRTableView;
 			sourceTree = "<group>";
@@ -113,6 +110,9 @@
 		AB53CDDC13EB8AF900F1DD8A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AB53CDD713EB8AF400F1DD8A /* HarnessViewController.h */,
+				AB53CDD813EB8AF400F1DD8A /* HarnessViewController.m */,
+				AB53CDD913EB8AF400F1DD8A /* HarnessViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

@@ -12,6 +12,7 @@
 @interface HarnessViewController : UIViewController<FRListViewDelegate,FRListViewDataSource>{
     
 	FRListView *listView;
+	NSUInteger	count_;
 }
 @property (nonatomic, retain) IBOutlet FRListView *listView;
 
