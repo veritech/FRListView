@@ -47,6 +47,8 @@
 @synthesize delegate = delegate_;
 @synthesize dataSource = dataSource_;
 @synthesize stickToBottom = stickToBottom_;
+@synthesize clearCellCacheOnReload = clearCellCacheOnReload_;
+@synthesize animateStickToBottom = animateStickToBottom_;
 
 #pragma mark - Object Lifecycle
 -(id) initWithFrame:(CGRect)frame{
@@ -92,6 +94,10 @@
 	[self addSubview:[self scrollView]];
 	
 	stickToBottom_ = NO;
+	
+	clearCellCacheOnReload_ = NO;
+	
+	animateStickToBottom_ = YES;
 	
 	cachedRowCount_ = 0;
 	
@@ -245,13 +251,25 @@
 		
 		contentSize.height += cellHeight;
 	}
+
+	[[self scrollView] setContentSize:contentSize];
 	
 	//Stick to the bottom
 	if( [self stickToBottom] ){
-		[[self scrollView] setContentOffset:CGPointMake(0.0f, contentSize.height-[[self scrollView] bounds].size.height)];
+		
+		if( contentSize.height > CGRectGetHeight([self bounds]) ){
+			
+			[[self scrollView] setContentOffset:CGPointMake(0.0f, contentSize.height-[[self scrollView] bounds].size.height) 
+									   animated:[self animateStickToBottom]
+			 ];			
+		}
+		else{
+			
+			[[self scrollView] setContentOffset:CGPointMake(0.0f, -0.1f)];
+			
+		}
+
 	}
-	
-	[[self scrollView] setContentSize:contentSize];
 	
 	//NSLog(@"Set content size to %@",NSStringFromCGSize(contentSize));
 			
@@ -319,7 +337,12 @@
 	cachedRowCount_ = FRListViewCountDirty;
 	
 	[[self rectCache] removeAllObjects];
-	[[self cellCache] removeAllObjects];
+	
+	//Should we clear the cell cache on reload
+	if( [self clearCellCacheOnReload] ){
+		[[self cellCache] removeAllObjects];		
+	}
+
 }
 
 /**
