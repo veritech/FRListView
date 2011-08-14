@@ -126,6 +126,11 @@
 											   object:self
 	 ];
 	
+	//Touch recognizers
+	[self addGestureRecognizer:[[[UITapGestureRecognizer alloc] initWithTarget:self
+																		action:@selector(didTouch:)
+								 ] autorelease]];
+	
 }
 
 -(void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
@@ -412,6 +417,40 @@
 	
 	//return it
 	return cell;
+}
+
+#pragma mark - Touch handling
+/**
+ *	Handle touches on the view, and call didSelectRowAtIndex where needed.
+ *
+ */
+-(void) didTouch:(UIGestureRecognizer*) aGesture{
+	
+	CGPoint				touch;
+	UIView				*view;
+	NSUInteger			index;
+	
+	touch = [aGesture locationInView:[self scrollView]];
+	
+	if( (view = [[self scrollView] hitTest:touch withEvent:nil]) ){
+		
+		if( [view isKindOfClass:[NSClassFromString(@"UITableViewCellContentView") class]] ){
+
+			index  = [[self rectCache] indexOfObject:[NSValue valueWithCGRect:[[view superview] frame]]];
+			
+			//NSLog(@"Touched Cell %d",index);
+			
+			[self didSelectRowAtIndex:index];
+		}
+		else if( [view isKindOfClass:[UITableViewCell class]] ){
+			
+			index  = [[self rectCache] indexOfObject:[NSValue valueWithCGRect:[view frame]]];
+			
+			[self didSelectRowAtIndex:index];
+		}
+		
+	}
+	
 }
 
 #pragma mark - FRListViewDelegate wrapper methods
