@@ -206,8 +206,6 @@
 	
 	[[NSNotificationQueue defaultQueue] enqueueNotification:notification
 											   postingStyle:NSPostASAP
-											   coalesceMask:(NSNotificationCoalescingOnName|NSNotificationCoalescingOnSender)
-												   forModes:nil
 	 ];
 	
 }
