@@ -24,6 +24,8 @@
 	UIScrollView			*scrollView_;
 	
 	BOOL					stickToBottom_;
+	BOOL					clearCellCacheOnReload_;
+	BOOL					animateStickToBottom_;
 	
 	NSInteger				cachedRowCount_;
 	
@@ -35,6 +37,8 @@
 @property (nonatomic,assign) id<FRListViewDataSource> dataSource;
 @property (nonatomic,assign) id<FRListViewDelegate> delegate;
 @property (nonatomic,assign) BOOL stickToBottom;
+@property (nonatomic,assign) BOOL clearCellCacheOnReload;
+@property (nonatomic,assign) BOOL animateStickToBottom;
 
 -(void) setNeedsReload;
 -(void) reloadData;

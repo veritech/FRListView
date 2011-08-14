@@ -181,6 +181,8 @@
 		
 		[scrollView_ setAutoresizingMask:[self autoresizingMask]];
 		
+		[scrollView_ setAlwaysBounceVertical:YES];
+		
 		[scrollView_ setDelegate:self];
 		
 		if( DEBUGMODE ){
