@@ -145,10 +145,12 @@
 		[self setNeedsReload];
 	}
 	else if( [keyPath isEqualToString:@"bounds"]){
-		[[self scrollView] setBounds:[object CGRectValue]];
+		[[self scrollView] setBounds:[[change objectForKey:NSKeyValueChangeNewKey] CGRectValue]];
 	}
 	else if( [keyPath isEqualToString:@"frame"]){
-		[[self scrollView] setFrame:[object CGRectValue]];
+		[[self scrollView] setFrame:[[change objectForKey:NSKeyValueChangeNewKey] CGRectValue]];
+		
+		[[self scrollView] setNeedsLayout];
 	}
 	
 }
