@@ -285,6 +285,7 @@
 	
 	id			cell;
 	CGRect		cellRect;
+	CGFloat		viewWidth = CGRectGetWidth([self bounds]);
 	
 	//Loop over the cells and see if we have any overlap
 	for( int i=0; i < [self numberOfRowsInList]; i++ ){
@@ -298,8 +299,13 @@
 			//Load cell
 			//NSLog(@"Loading cell At index %d",i);
 		
+			//Adjust the cell width to the width of the view
 			
 			cell = [self cellForRowAtIndex:i];
+			
+			//NSLog(@"Frame %@",NSStringFromCGRect(cellRect));
+			
+			cellRect.size.width = viewWidth;
 			
 			[cell setFrame:cellRect];
 			
@@ -553,7 +559,10 @@
 		//Add the cell to the cache
 		if( (cellIdentifier = [cell reuseIdentifier]) ){
 			[[self cellCacheForIdentifier:cellIdentifier] enqueue:cell];		
-		}	
+		}
+		
+		//Ensure the cell responds correctly to resize events
+		[cell setAutoresizingMask:UIViewAutoresizingFlexibleWidth];
 	}
 	
 	return cell;
