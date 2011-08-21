@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AB38FA7213F7A35000EEE974 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB38FA7113F7A34F00EEE974 /* QuartzCore.framework */; };
 		AB53CDB813EB8AB400F1DD8A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB53CDB713EB8AB400F1DD8A /* UIKit.framework */; };
 		AB53CDBA13EB8AB400F1DD8A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB53CDB913EB8AB400F1DD8A /* Foundation.framework */; };
 		AB53CDBC13EB8AB400F1DD8A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB53CDBB13EB8AB400F1DD8A /* CoreGraphics.framework */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AB38FA7113F7A34F00EEE974 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		AB53CDB313EB8AB400F1DD8A /* FRTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FRTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB53CDB713EB8AB400F1DD8A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		AB53CDB913EB8AB400F1DD8A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -46,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB38FA7213F7A35000EEE974 /* QuartzCore.framework in Frameworks */,
 				AB53CDB813EB8AB400F1DD8A /* UIKit.framework in Frameworks */,
 				AB53CDBA13EB8AB400F1DD8A /* Foundation.framework in Frameworks */,
 				AB53CDBC13EB8AB400F1DD8A /* CoreGraphics.framework in Frameworks */,
@@ -58,6 +61,7 @@
 		AB53CDA813EB8AB400F1DD8A = {
 			isa = PBXGroup;
 			children = (
+				AB38FA7113F7A34F00EEE974 /* QuartzCore.framework */,
 				AB53CDBD13EB8AB400F1DD8A /* FRTableView */,
 				AB53CDB613EB8AB400F1DD8A /* Frameworks */,
 				AB53CDB413EB8AB400F1DD8A /* Products */,
