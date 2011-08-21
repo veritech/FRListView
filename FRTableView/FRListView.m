@@ -267,6 +267,7 @@
 		}
 		else{
 			
+			//For some reason if we set the offset to have y of 0.0f, the first cell appears off the screen
 			[[self scrollView] setContentOffset:CGPointMake(0.0f, -0.1f)];
 			
 		}
