@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #define FRListViewCountDirty -1
-#define kFRListViewCacheSize 12
+#define kFRListViewCacheSize 11
 #define kFRListViewSetNeedsReloadNotification @"FRListViewSetNeedsReloadNotification"
 #define DEBUGMODE YES
 
