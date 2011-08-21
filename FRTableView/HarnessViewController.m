@@ -43,7 +43,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 	
-	count_ = 1;
+	count_ = 100;
 	
 	[[self listView] setStickToBottom:YES];
 	
@@ -51,12 +51,12 @@
 	
 	[[self listView] setDelegate:self];
 	
-	[NSTimer scheduledTimerWithTimeInterval:5.0f
-									 target:self 
-								   selector:@selector(update) 
-								   userInfo:nil 
-									repeats:YES
-	 ];
+//	[NSTimer scheduledTimerWithTimeInterval:5.0f
+//									 target:self 
+//								   selector:@selector(update) 
+//								   userInfo:nil 
+//									repeats:YES
+//	 ];
 }
 
 -(void) update{
@@ -117,7 +117,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
 
 @end
