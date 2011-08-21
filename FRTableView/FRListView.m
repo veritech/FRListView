@@ -522,7 +522,7 @@
 				];
 	}
 	
-	return 40.0f;
+	return 44.0f;
 }
 
 #pragma mark - FRListViewDataSource wrapper methods
