@@ -453,7 +453,7 @@
 #pragma mark - Touch handling
 /**
  *	Handle touches on the view, and call didSelectRowAtIndex where needed.
- *
+ *	@depreciated USE touchesShouldBegin:withEvent:inContentView: instead
  */
 -(void) didTouch:(UIGestureRecognizer*) aGesture{
 	
